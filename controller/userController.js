@@ -34,7 +34,43 @@ const postUserSignUp = async (req,res,next)=>{
   }
 }
 
+const getLoginPage = async (req, res, next) => {
+  try {
+    res.sendFile(path.join(__dirname, "../", "frontend", "html", "signin.html"));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const postUserLogin = async (req, res, next) => {
+  try {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    await User.findOne({ where: { email: email } }).then((user) => {
+      if (user.password != password)  {
+            return res.status(401).json({
+              success: false,
+              message: "Password Incorrect!",
+            });
+          }
+          else {
+            return res.status(200).json({
+              success: true,
+              message: "Login Successful!",
+            });
+          }
+        });
+      } 
+  catch (error) {
+    console.log(error);
+  }
+};
+
+
 module.exports = {
     postUserSignUp,
-    getSignUpPage
+    getSignUpPage,
+    getLoginPage,
+    postUserLogin
 }
