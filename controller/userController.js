@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 
 const getSignUpPage = async (req, res, next) => {
   try {
-    res.sendFile(path.join(__dirname, "../", "frontend", "html", "signup.html"));
+    res.sendFile(path.join(__dirname, "../", "public", "html", "user.html"));
   } catch (error) {
     console.log(error);
   }
@@ -47,7 +47,7 @@ const postUserSignUp = async (req, res, next) => {
 
 const getLoginPage = async (req, res, next) => {
   try {
-    res.sendFile(path.join(__dirname, "../", "frontend", "html", "signin.html"));
+    res.sendFile(path.join(__dirname, "../", "public", "html", "user.html"));
   } catch (error) {
     console.log(error);
   }
