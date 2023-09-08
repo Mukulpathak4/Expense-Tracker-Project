@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('expensemanager','root','spsushila',{
+const sequelize = new Sequelize('totalexpense','root','spsushila',{
   dialect :'mysql',
   host:'localhost'
 });

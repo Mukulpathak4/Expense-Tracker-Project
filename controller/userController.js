@@ -67,10 +67,7 @@ const postUserLogin = async (req, res, next) => {
               .json({ success: false, message: "Something went Wrong!" });
           }
           if (result == true) {
-            return res.status(200).json({
-              success: true,
-              message: "Login Successful!",
-            });
+            return res.status(200).sendFile(path.join(__dirname, "../", "public", "html", "homePage.html"))
           } else {
             return res.status(401).json({
               success: false,
