@@ -38,15 +38,18 @@
                         <a class="nav-link active" aria-current="page" href="/homePage">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Reports &#128081</a>
+                        <a id="reportsLink" class="nav-link active" aria-current="page" href="#"
+                            onclick="onClickAlert();">Reports &#128081</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">LeaderBoard &#128081</a>
+                        <a id="leaderboardLink" class="nav-link active" aria-current="page" href="#"
+                            onclick="onClickAlert();">LeaderBoard
+                            &#128081</a>
                     </li>
                 </ul>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button class="topBtn btn py-1" type="button" data-bs-toggle="tooltip" data-bs-placement="left"
-                        title="Premium Membership inclues LeaderBoard & Daily, Monthly & Yearly Reports">
+                    <button id="buyPremiumBtn" class="topBtn btn py-1" type="button" data-bs-toggle="tooltip"
+                        data-bs-placement="left">
                         Buy Premium &#128081
                     </button>
                     <button class="topBtn btn py-1" type="button">Log out</button>
@@ -184,6 +187,12 @@
         integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="../js/homePage.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        function onClickAlert() {
+            alert("Buy Premium to access this feature.");
+        }
+    </script>
 </body>
 
 </html>
