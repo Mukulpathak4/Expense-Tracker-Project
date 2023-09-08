@@ -18,6 +18,46 @@
 <body>
 
 
+    <!--------------------------------------------------------------------------------- -->
+    <!-- Nav Bar -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark" id="navigation">
+        <div class="container-fluid">
+            <a href="/homePage">
+                <img src="/views/euro.png" width="30px" height="30px" id="png" />
+            </a>
+            <a class="navbar-brand" href="/homePage">Expense Tracker</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/homePage">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Reports &#128081</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">LeaderBoard &#128081</a>
+                    </li>
+                </ul>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="topBtn btn py-1" type="button" data-bs-toggle="tooltip" data-bs-placement="left"
+                        title="Premium Membership inclues LeaderBoard & Daily, Monthly & Yearly Reports">
+                        Buy Premium &#128081
+                    </button>
+                    <button class="topBtn btn py-1" type="button">Log out</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+
+
     <!-- --------------------------------------------------------------------------------- -->
     <!-- Add Expense Form-->
 
@@ -118,15 +158,24 @@
             <!-- table body -->
 
             <tbody id="tbodyId">
-
+                <!-- <tr class="trStyle">
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>
+              <button class="editDelete btn btn-danger">Delete</button>
+              <button class="editDelete btn btn-secondary">Edit</button>
+            </td>
+          </tr> -->
             </tbody>
         </table>
-        <nav aria-label="Page navigation example">
-            <ul id="paginationUL" class="pagination justify-content-md-end">
-
-            </ul>
-        </nav>
     </div>
+
+
+
+    <!-- ---------------------------------------------------------------------------------- -->
+    <!-- scripts -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
@@ -134,9 +183,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"
         integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="/js/homePage.js"></script>
-
-
+    <script src="../js/homePage.js"></script>
 </body>
 
 </html>

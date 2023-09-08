@@ -1,11 +1,11 @@
-const loginBtn = document.getElementById("signInBtn");
-const loginEmail = document.getElementById("email");
-const loginPassword = document.getElementById("password");
+const loginButton = document.getElementById("signInBtn");
+const loginEmail = document.getElementById("loginEmail"); // Updated to match the new ID
+const loginPassword = document.getElementById("loginPassword"); // Updated to match the new ID
 
 function login() {
   const loginDetails = {
-    loginEmail: loginEmail.value,
-    loginPassword: loginPassword.value,
+    loginEmail: loginEmail.value, // Updated to match the new ID
+    loginPassword: loginPassword.value, // Updated to match the new ID
   };
 
   axios
@@ -25,29 +25,24 @@ function login() {
     });
 }
 
-loginBtn.addEventListener("click", login);
+loginButton.addEventListener("click", login);
 
+const signupButton = document.getElementById("signUpBtn");
+const signUpName = document.getElementById('name'); // Assuming you have a name input field
+const signUpEmail = document.getElementById('signupEmail'); // Updated to match the new ID
+const signUpPassword = document.getElementById('signupPassword'); // Updated to match the new ID
 
-
-const signUp = document.getElementById("signUpBtn");
-const signUpName = document.getElementById('name');
-const signUpEmail = document.getElementById('email');
-const signUpPassword = document.getElementById('password');
-
-
-
-function signUp() {
+function signup() {
   const signUpDetails = {
-    signUpName: signUpName.value,
-    signUpEmail: signUpEmail.value,
-    signUpPassword: signUpPassword.value,
+    name: signUpName.value, // Assuming you have a name input field
+    email: signUpEmail.value, // Updated to match the new ID
+    password: signUpPassword.value, // Updated to match the new ID
   };
 
   axios
-    .post("http://localhost:3000/user/login", signUpDetails)
+    .post("http://localhost:3000/user/signup", signUpDetails)
     .then((result) => {
       alert(result.data.message);
-      localStorage.setItem("token", result.data.token);
       window.location.href = "/";
     })
     .catch((error) => {
@@ -60,4 +55,4 @@ function signUp() {
     });
 }
 
-signUpBtn.addEventListener("click", signUp);
+signupButton.addEventListener("click", signup);
