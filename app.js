@@ -5,6 +5,9 @@ const app = express();
 // Import the body-parser middleware for parsing HTTP request bodies.
 const bodyParser = require("body-parser");
 
+const dotenv = require("dotenv");
+dotenv.config();
+
 // Import the Sequelize instance for connecting to the database.
 const sequelize = require("./util/database");
 
@@ -12,6 +15,7 @@ const sequelize = require("./util/database");
 const userRouter = require("./routes/userRoutes"); // User-related routes
 const expenseRouter = require("./routes/expenseRouter"); // Expense-related routes
 const purchaseMembershipRouter = require("./routes/purchaseMembershipRouter"); // Purchase membership related routes
+const leaderboardRouter = require("./routes/leaderboardRouter");
 
 // Import the Sequelize models that define your database tables.
 const User = require("./models/userModel"); // User model
@@ -36,6 +40,7 @@ app.use("/expense", expenseRouter); // These routes will also be accessible unde
 
 // Routes related to purchasing membership:
 app.use("/purchase", purchaseMembershipRouter); // These routes will be accessible under "/purchase".
+app.use("/premium", leaderboardRouter);
 
 // Define relationships between database tables using Sequelize associations.
 User.hasMany(Expense); // A user can have multiple expenses.
