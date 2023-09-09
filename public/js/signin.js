@@ -57,7 +57,7 @@ function signup() {
     .post("http://localhost:3000/signup", signUpDetails)
     .then((result) => {
       // Display a success message.
-      alert(result.data.message);
+      alert('Done! You Can Login Now.');
 
       // Redirect to the login page.
       window.location.href = "/";

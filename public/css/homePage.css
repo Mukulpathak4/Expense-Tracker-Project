@@ -1,0 +1,77 @@
+/* Reset some default styles and set a base font size and color */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Style the navigation bar */
+#navigation {
+    background-color: #333;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    color: #fff;
+}
+
+/* Style the dropdown menu */
+.dropdown-menu {
+    background-color: #333;
+    border: none;
+}
+
+.dropdown-item {
+    color: #fff;
+}
+
+/* Style the buttons */
+.topBtn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    font-size: 1rem;
+    margin-left: 10px;
+}
+
+/* Style the form elements */
+.form-control {
+    border: 1px solid #ccc;
+}
+
+/* Style the table */
+.table {
+    background-color: #fff;
+}
+
+/* Style the table headers */
+#tableHead {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Style the table rows */
+.trStyle {
+    background-color: #f9f9f9;
+}
+
+/* Style the Add Expense button */
+#submitBtn {
+    background-color: #28a745;
+    color: #fff;
+}
+
+/* Add some padding to elements */
+.m-4 {
+    margin: 1rem;
+}
+
+/* Add some spacing to the bottom of the page */
+.container {
+    margin-bottom: 2rem;
+}

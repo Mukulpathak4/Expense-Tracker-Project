@@ -1,82 +1,54 @@
-html,
-body {
-  height: 100%;
-  width: 100%;
-  background-color: #effeff;
-}
-/* 293241 dark
-  3d5a80 blue
-  98c1d9 light
-*/
-.editDelete {
-  float: right;
-  margin: 3px;
-  padding: 3px 10px;
-}
-#png {
-  margin-right: 10px;
-}
-#form1 {
-  border-radius: 10px;
-  background-color: #3d5a80;
-  box-shadow: 4px 4px 9px #293241;
-  margin: 20px 193px;
-}
-#table {
-  border-radius: 10px;
-  background-color: #d2eaf7;
-  /* background-image: linear-gradient(to bottom right, #c7e9fd, #3d5a80); */
-  box-shadow: 4px 4px 9px #b8b8b8;
-}
-#submitBtn {
-  width: 140px;
-  background-color: #293241;
-  border-color: #293241;
-  color: white;
-}
-.topBtn {
-  background-color: white;
-  border-color: white;
-  color: #293241;
-}
+/* Add this CSS to your leaderboard.css file or in a <style> tag in your HTML */
+
+/* Navbar styles */
 #navigation {
-  background-color: #233b64;
-}
-#categoryBtn {
-  background-color: #293241;
-  width: auto;
-  border-radius: 7px;
-  border: none;
-  color: white;
-}
-#category {
-  width: 300px;
-}
-.input-group-text {
-  background-color: #293241;
-  color: white;
-  border: none;
-}
-#description {
-  width: 2000px;
+  background-color: #2e3a49; /* Dark background color */
 }
 
-.trStyle {
-  background-color: transparent;
+#navigation .navbar-brand {
+  font-size: 24px;
+  color: #fff; /* White text color for the brand */
 }
-#categoryBtn:hover,
-#submitBtn:hover,
-.editDelete:hover {
-  background-color: #ffffff;
-  color: #293241;
-  border-color: #293241;
+
+.navbar-toggler-icon {
+  border-color: #fff; /* White color for the toggle icon */
 }
-.topBtn:hover {
-  background-color: #3d5a80;
-  color: white;
-  border-color: #3d5a80;
+
+.topBtn {
+  background-color: #007bff; /* Blue button background color */
+  color: #fff; /* Text color */
+  margin-left: 10px;
+  font-weight: bold;
 }
-.editDelete {
-  background-color: #293241;
-  border: none;
+
+/* Page heading styles */
+h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 30px;
+  color: #333; /* Dark text color for the heading */
+}
+
+/* Table styles */
+.table {
+  background-color: #fff; /* White background color */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Box shadow for the table */
+  border-radius: 5px; /* Rounded corners for the table */
+}
+
+.table th, .table td {
+  border: 1px solid #ccc; /* Border for table cells */
+  padding: 10px;
+  text-align: center;
+}
+
+/* Table header styles */
+.table thead {
+  background-color: #f0f0f0; /* Light gray background color for the header */
+  color: #333; /* Dark text color for header cells */
+}
+
+/* Hover effect for table rows */
+.table tbody tr:hover {
+  background-color: #f5f5f5; /* Lighter gray background on hover */
 }
