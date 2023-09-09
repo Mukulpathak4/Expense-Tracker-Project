@@ -29,37 +29,41 @@ const getLoginPage = (req, res, next) => {
 };
 
 // Function to handle user signup.
-const postUserSignUp = (req, res, next) => {
-  // Extract user data from the request body.
-  const name = req.body.name;
-  const email = req.body.email;
-  const password = req.body.password;
+const postUserSignUp = async (req, res, next) => {
+  try {
+    // Extract user data from the request body.
+    const name = req.body.name;
+    const email = req.body.email;
+    const password = req.body.password;
 
-  // Check if a user with the same email already exists in the database.
-  User.findOne({ where: { email: email } })
-    .then((user) => {
-      if (user) {
-        // If a user with the same email exists, send a conflict (status 409) response.
-        return res.status(409).send(
-          `<script>alert('This email is already taken. Please choose another one.'); window.location.href='/'</script>`
-        );
-      } else {
-        // If no user with the same email exists, hash the user's password securely.
-        bcrypt.hash(password, 10, async (err, hash) => {
-          // Create a new user record in the database.
-          await User.create({
-            name: name,
-            email: email,
-            password: hash,
-          });
-        });
-        // Send a success (status 200) response after user creation.
-        return res.status(200).send(
-          `<script>alert('User Created Successfully!'); window.location.href='/'</script>`
-        );
-      }
-    })
-    .catch((err) => console.log(err));
+    // Check if a user with the same email already exists in the database.
+    const existingUser = await User.findOne({ where: { email: email } });
+
+    if (existingUser) {
+      // If a user with the same email exists, send a conflict (status 409) response.
+      return res.status(409).send(
+        `<script>alert('This email is already taken. Please choose another one.'); window.location.href='/'</script>`
+      );
+    }
+
+    // If no user with the same email exists, hash the user's password securely.
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create a new user record in the database.
+    await User.create({
+      name: name,
+      email: email,
+      password: hashedPassword,
+    });
+
+    // Send a success (status 200) response after user creation.
+    return res.status(200).send(
+      `<script>alert('User Created Successfully!'); window.location.href='/'</script>`
+    );
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("An error occurred while creating the user.");
+  }
 };
 
 // Function to handle user login.

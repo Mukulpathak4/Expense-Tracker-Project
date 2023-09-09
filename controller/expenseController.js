@@ -1,6 +1,7 @@
 const path = require("path");
-const Expense = require("../models/expenseModel"); // Import the Expense model
+const Expense = require("../models/expenseModel");
 const database = require("../util/database");
+const User = require("../models/userModel");
 
 // Controller function to render the home page
 exports.getHomePage = (req, res, next) => {
@@ -8,71 +9,86 @@ exports.getHomePage = (req, res, next) => {
 };
 
 // Controller function to add an expense
-exports.addExpense = (req, res, next) => {
-  const date = req.body.date;
-  const category = req.body.category;
-  const description = req.body.description;
-  const amount = req.body.amount;
+exports.addExpense = async (req, res, next) => {
+  try {
+    const { date, category, description, amount } = req.body;
 
-  // Create a new expense record in the database
-  Expense.create({
-    date: date,
-    category: category,
-    description: description,
-    amount: amount,
-    userId: req.user.id, // Associate the expense with the current user
-  })
-    .then((result) => {
-      res.status(200);
-      res.redirect("/homePage"); // Redirect to the home page after adding an expense
-    })
-    .catch((err) => console.log(err));
-};
-
-// Controller function to get all expenses for the current user
-exports.getAllExpenses = (req, res, next) => {
-  // Find all expenses in the database associated with the current user
-  Expense.findAll({ where: { userId: req.user.id } })
-    .then((expenses) => {
-      res.json(expenses); // Respond with JSON containing the user's expenses
-    })
-    .catch((err) => {
-      console.log(err);
+    await User.increment('totalExpenses', {
+      by: amount,
+      where: { id: req.user.id },
     });
-};
 
-// Controller function to delete an expense
-exports.deleteExpense = (req, res, next) => {
-  const id = req.params.id;
-  console.log(id, req.user.id);
-  
-  // Delete the expense with the specified ID associated with the current user
-  Expense.destroy({ where: { id: id, userId: req.user.id } })
-    .then((result) => {
-      res.redirect("/homePage"); // Redirect to the home page after deleting the expense
-    })
-    .catch((err) => console.log(err));
-};
-
-// Controller function to edit an expense
-exports.editExpense = (req, res, next) => {
-  const id = req.params.id;
-  console.log(req.body);
-  const category = req.body.category;
-  const description = req.body.description;
-  const amount = req.body.amount;
-
-  // Update the expense with the specified ID associated with the current user
-  Expense.update(
-    {
+    await Expense.create({
+      date: date,
       category: category,
       description: description,
       amount: amount,
-    },
-    { where: { id: id, userId: req.user.id } }
-  )
-    .then((result) => {
-      res.redirect("/homePage"); // Redirect to the home page after editing the expense
-    })
-    .catch((err) => console.log(err));
+      userId: req.user.id,
+    });
+
+    res.redirect("/homePage");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("An error occurred while adding the expense.");
+  }
+};
+
+// Controller function to get all expenses for the current user
+exports.getAllExpenses = async (req, res, next) => {
+  try {
+    const expenses = await Expense.findAll({ where: { userId: req.user.id } });
+    res.json(expenses);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("An error occurred while fetching expenses.");
+  }
+};
+
+// Controller function to delete an expense
+exports.deleteExpense = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const expense = await Expense.findByPk(id);
+
+    await User.decrement('totalExpenses', {
+      by: expense.amount,
+      where: { id: req.user.id },
+    });
+
+    await Expense.destroy({ where: { id: id, userId: req.user.id } });
+    res.redirect("/homePage");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("An error occurred while deleting the expense.");
+  }
+};
+
+// Controller function to edit an expense
+exports.editExpense = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const { category, description, amount } = req.body;
+
+    const expense = await Expense.findByPk(id);
+    const amountDifference = amount - expense.amount;
+
+    await User.increment('totalExpenses', {
+      by: amountDifference,
+      where: { id: req.user.id },
+    });
+
+    await Expense.update(
+      {
+        category: category,
+        description: description,
+        amount: amount,
+      },
+      { where: { id: id, userId: req.user.id } }
+    );
+
+    res.redirect("/homePage");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("An error occurred while editing the expense.");
+  }
 };
