@@ -17,10 +17,14 @@ const expenseRouter = require("./routes/expenseRouter"); // Expense-related rout
 const purchaseMembershipRouter = require("./routes/purchaseMembershipRouter"); // Purchase membership related routes
 const leaderboardRouter = require("./routes/leaderboardRouter");
 
+const resetPasswordRouter = require("./routes/resetPassword");
+
 // Import the Sequelize models that define your database tables.
 const User = require("./models/userModel"); // User model
 const Expense = require("./models/expenseModel"); // Expense model
 const Order = require("./models/orderModel"); // Order model
+
+const ResetPassword = require("./models/resetPasswordModel");
 
 // Serve static files from the "public" directory.
 app.use(express.static("public"));
@@ -43,12 +47,17 @@ app.use("/expense", expenseRouter); // These routes will also be accessible unde
 app.use("/purchase", purchaseMembershipRouter); // These routes will be accessible under "/purchase".
 app.use("/premium", leaderboardRouter);
 
+app.use("/password", resetPasswordRouter);
+
 // Define relationships between database tables using Sequelize associations.
 User.hasMany(Expense); // A user can have multiple expenses.
 Expense.belongsTo(User); // An expense belongs to a user.
 
 User.hasMany(Order); // A user can have multiple orders (e.g., for premium membership).
 Order.belongsTo(User); // An order belongs to a user.
+
+ResetPassword.belongsTo(User);
+User.hasMany(ResetPassword);
 
 // Sync the Sequelize models with the database and start the Express application.
 sequelize

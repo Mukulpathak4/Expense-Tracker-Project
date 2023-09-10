@@ -27,8 +27,6 @@ router.post("/login", userController.postUserLogin);
 // Route for handling user sign-up.
 router.post("/signUp", userController.postUserSignUp);
 
-router.get("/resetPasswordPage", userController.resetPasswordPage);
-router.post("/sendMail", userController.sendMail);
 
 // Export the router to make it available for use in other parts of the application.
 module.exports = router;
