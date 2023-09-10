@@ -33,6 +33,7 @@ app.use(bodyParser.json());
 
 // Routes related to user management:
 app.use("/", userRouter); // These routes will be accessible at the root URL and "/user".
+app.use("/user", userRouter);
 
 // Routes related to the expense tracker application:
 app.use("/homePage", expenseRouter); // These routes will be accessible under "/homePage" for managing expenses.
