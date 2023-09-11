@@ -16,6 +16,7 @@ const userRouter = require("./routes/userRoutes"); // User-related routes
 const expenseRouter = require("./routes/expenseRouter"); // Expense-related routes
 const purchaseMembershipRouter = require("./routes/purchaseMembershipRouter"); // Purchase membership related routes
 const leaderboardRouter = require("./routes/leaderboardRouter");
+const reportsRouter = require("./router/reportsRouter");
 
 const resetPasswordRouter = require("./routes/resetPassword");
 
@@ -46,6 +47,7 @@ app.use("/expense", expenseRouter); // These routes will also be accessible unde
 // Routes related to purchasing membership:
 app.use("/purchase", purchaseMembershipRouter); // These routes will be accessible under "/purchase".
 app.use("/premium", leaderboardRouter);
+app.use("/reports", reportsRouter);
 
 app.use("/password", resetPasswordRouter);
 
