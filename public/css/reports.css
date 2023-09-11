@@ -3,8 +3,8 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
- background-image: url('https://plus.unsplash.com/premium_photo-1679922747473-f7210acb783e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=fit&w=1500&q=80');
     color: #333;
+    background-color: #ccc;
 }
 
 /* Style the navigation bar */
@@ -76,3 +76,10 @@ body {
     margin-bottom: 2rem;
 }
 
+
+#dailyTotal,
+#dailyTotalAmount,
+#monthlyTotal,
+#monthlyTotalAmount {
+  font-size: large;
+}

@@ -16,7 +16,7 @@ const userRouter = require("./routes/userRoutes"); // User-related routes
 const expenseRouter = require("./routes/expenseRouter"); // Expense-related routes
 const purchaseMembershipRouter = require("./routes/purchaseMembershipRouter"); // Purchase membership related routes
 const leaderboardRouter = require("./routes/leaderboardRouter");
-const reportsRouter = require("./router/reportsRouter");
+const reportsRouter = require("./routes/reportsRouter");
 
 const resetPasswordRouter = require("./routes/resetPassword");
 
@@ -38,7 +38,7 @@ app.use(bodyParser.json());
 
 // Routes related to user management:
 app.use("/", userRouter); // These routes will be accessible at the root URL and "/user".
-app.use("/user", userRouter);
+// app.use("/user", userRouter);
 
 // Routes related to the expense tracker application:
 app.use("/homePage", expenseRouter); // These routes will be accessible under "/homePage" for managing expenses.

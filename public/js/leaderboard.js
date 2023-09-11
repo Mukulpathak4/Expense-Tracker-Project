@@ -2,6 +2,9 @@ const categoryItems = document.querySelectorAll(".dropdown-item");
 const categoryInput = document.querySelector("#categoryInput");
 const categoryBtn = document.querySelector("#categoryBtn");
 const tbody = document.getElementById("tbodyId");
+const reportsLink = document.getElementById("reportsLink");
+     reportsLink.setAttribute("href", "/reports/getReportsPage");
+
 
 categoryItems.forEach((item) => {
   item.addEventListener("click", (e) => {
