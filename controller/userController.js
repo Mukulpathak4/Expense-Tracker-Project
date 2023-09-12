@@ -6,16 +6,13 @@ const jwt = require("jsonwebtoken");
 const Sib = require("sib-api-v3-sdk");
 
 
-
+// Function to generate an access token for a user.
 // Function to generate an access token for a user.
 function generateAccessToken(id, email) {
-  // Create a JWT token with user information and a secret key.
-  // Note: In production, it's crucial to store the secret key securely and not hardcode it here.
-  return jwt.sign(
-    { userId: id, email: email },
-    "kjhsgdfiuiew889kbasgdfskjabsdfjlabsbdljhsd"
-  );
+  // Create a JWT token with user information and the correct secret key.
+  return jwt.sign({ userId: id, email: email }, process.env.RAZORPAY_KEY_SECRET);
 }
+
 
 // Middleware to check if a user is a premium user.
 const isPremiumUser = (req, res, next) => {

@@ -1,12 +1,16 @@
 // Import the Express framework for building web applications.
+
 const express = require("express");
 const app = express();
+require('dotenv').config(); // Load environment variables from .env file
+
 
 // Import the body-parser middleware for parsing HTTP request bodies.
 const bodyParser = require("body-parser");
 
-const dotenv = require("dotenv");
-dotenv.config();
+
+// const dotenv = require("dotenv");
+// dotenv.config();
 
 // Import the Sequelize instance for connecting to the database.
 const sequelize = require("./util/database");
