@@ -24,6 +24,11 @@ router.get(
   userAuthentication, // Middleware to authenticate the user
   expenseController.getAllExpenses // Handler to get all expenses
 );
+router.get(
+  "/getAllExpenses/:page",
+  userAuthentication,
+  expenseController.getAllExpensesforPagination
+);
 
 // Route for deleting an expense by ID.
 router.get(
