@@ -3,8 +3,17 @@ const categoryInput = document.querySelector("#categoryInput");
 const categoryBtn = document.querySelector("#categoryBtn");
 const tbody = document.getElementById("tbodyId");
 const reportsLink = document.getElementById("reportsLink");
+const logoutBtn = document.getElementById("logoutBtn");
      reportsLink.setAttribute("href", "/reports/getReportsPage");
 
+async function logout() {
+  try {
+    localStorage.clear();
+    window.location.href = "/";
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 categoryItems.forEach((item) => {
   item.addEventListener("click", (e) => {
@@ -42,5 +51,5 @@ async function getLeaderboard() {
     tr.appendChild(td2);
   });
 }
-
+logoutBtn.addEventListener("click", logout);
 document.addEventListener("DOMContentLoaded", getLeaderboard);

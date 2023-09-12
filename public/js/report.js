@@ -8,8 +8,16 @@ const monthShowBtn = document.getElementById("monthShowBtn");
 const tbodyMonthly = document.getElementById("tbodyMonthlyId");
 const tfootMonthly = document.getElementById("tfootMonthlyId");
 const leaderboardLink = document.getElementById("leaderboardLink");
-
+const logoutBtn = document.getElementById("logoutBtn");
 leaderboardLink.setAttribute("href", "/premium/getLeaderboardPage");
+async function logout() {
+  try {
+    localStorage.clear();
+    window.location.href = "/";
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 async function getDailyReport(e) {
   try {
@@ -152,6 +160,6 @@ async function getMonthlyReport(e) {
     console.log(error);
   }
 }
-
+logoutBtn.addEventListener("click", logout);
 dateShowBtn.addEventListener("click", getDailyReport);
 monthShowBtn.addEventListener("click", getMonthlyReport);
