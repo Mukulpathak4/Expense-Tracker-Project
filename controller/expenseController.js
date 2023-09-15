@@ -4,12 +4,13 @@ const User = require("../models/userModel");
 const sequelize = require("../util/database");
 
 // Controller function to render the home page
-exports.getHomePage = (req, res, next) => {
+const getHomePage = (req, res, next) => {
+  // Serve the HTML file for the home page
   res.sendFile(path.join(__dirname, "../", "public", "html", "homePage.html"));
 };
 
 // Controller function to add an expense
-exports.addExpense = async (req, res, next) => {
+const addExpense = async (req, res, next) => {
   const { date, category, description, amount } = req.body;
   let t; // Declare the transaction variable
 
@@ -37,6 +38,7 @@ exports.addExpense = async (req, res, next) => {
     // Commit the transaction if all operations succeed
     await t.commit();
 
+    // Redirect to the home page after adding the expense
     res.redirect("/homePage");
   } catch (err) {
     console.error(err);
@@ -50,12 +52,13 @@ exports.addExpense = async (req, res, next) => {
   }
 };
 
-
-
 // Controller function to get all expenses for the current user
-exports.getAllExpenses = async (req, res, next) => {
+const getAllExpenses = async (req, res, next) => {
   try {
+    // Fetch all expenses associated with the current user
     const expenses = await Expense.findAll({ where: { userId: req.user.id } });
+    
+    // Respond with the list of expenses in JSON format
     res.json(expenses);
   } catch (err) {
     console.error(err);
@@ -63,20 +66,29 @@ exports.getAllExpenses = async (req, res, next) => {
   }
 };
 
-exports.getAllExpensesforPagination = async (req, res, next) => {
+// Controller function to get expenses for pagination
+const getAllExpensesforPagination = async (req, res, next) => {
   try {
     const pageNo = req.params.page;
     const limit = 10;
     const offset = (pageNo - 1) * limit;
+
+    // Count the total number of expenses for the current user
     const totalExpenses = await Expense.count({
       where: { userId: req.user.id },
     });
+
+    // Calculate the total number of pages needed for pagination
     const totalPages = Math.ceil(totalExpenses / limit);
+
+    // Fetch expenses for the current page
     const expenses = await Expense.findAll({
       where: { userId: req.user.id },
       offset: offset,
       limit: limit,
     });
+
+    // Respond with expenses and total page count in JSON format
     res.json({ expenses: expenses, totalPages: totalPages });
   } catch (err) {
     console.log(err);
@@ -84,7 +96,7 @@ exports.getAllExpensesforPagination = async (req, res, next) => {
 };
 
 // Controller function to delete an expense
-exports.deleteExpense = async (req, res, next) => {
+const deleteExpense = async (req, res, next) => {
   let t; // Declare the transaction variable
 
   try {
@@ -106,6 +118,7 @@ exports.deleteExpense = async (req, res, next) => {
     // Commit the transaction if all operations succeed
     await t.commit();
 
+    // Redirect to the home page after deleting the expense
     res.redirect("/homePage");
   } catch (err) {
     console.error(err);
@@ -119,9 +132,8 @@ exports.deleteExpense = async (req, res, next) => {
   }
 };
 
-
 // Controller function to edit an expense
-exports.editExpense = async (req, res, next) => {
+const editExpense = async (req, res, next) => {
   let t; // Declare the transaction variable
 
   try {
@@ -153,6 +165,7 @@ exports.editExpense = async (req, res, next) => {
     // Commit the transaction if all operations succeed
     await t.commit();
 
+    // Redirect to the home page after editing the expense
     res.redirect("/homePage");
   } catch (err) {
     console.error(err);
@@ -166,3 +179,11 @@ exports.editExpense = async (req, res, next) => {
   }
 };
 
+module.exports = {
+  getHomePage,
+  addExpense,
+  getAllExpenses,
+  getAllExpensesforPagination,
+  deleteExpense,
+  editExpense,
+};

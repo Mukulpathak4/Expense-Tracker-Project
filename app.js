@@ -2,6 +2,10 @@
 
 const express = require("express");
 const app = express();
+
+const path = require("path");
+const fs = require("fs");
+
 require('dotenv').config(); // Load environment variables from .env file
 
 
@@ -11,6 +15,20 @@ const bodyParser = require("body-parser");
 
 // const dotenv = require("dotenv");
 // dotenv.config();
+const helmet = require("helmet");
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
+  })
+);
+
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, "access.log"),
+  { flags: "a" }
+);
+const morgan = require("morgan");
+app.use(morgan("combined", { stream: accessLogStream }));
 
 // Import the Sequelize instance for connecting to the database.
 const sequelize = require("./util/database");
@@ -69,6 +87,6 @@ User.hasMany(ResetPassword);
 sequelize
   .sync() // This method synchronizes the database schema with the defined models.
   .then((result) => {
-    app.listen(3000); // Start the Express app on port 3000.
+    app.listen(process.env.PORT ||3000); // Start the Express app on port 3000.
   })
   .catch((err) => console.log(err)); // Handle any errors that occur during synchronization.

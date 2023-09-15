@@ -9,7 +9,7 @@ const razorpayKeyId = process.env.RAZORPAY_KEY_ID;
 const razorpayKeySecret = process.env.RAZORPAY_KEY_SECRET;
 
 // Controller function to handle the purchase of a premium membership
-exports.purchasePremium = async (req, res) => {
+const purchasePremium = async (req, res) => {
   try {
     // Create a new Razorpay instance with API credentials
     var rzp = new Razorpay({
@@ -28,7 +28,7 @@ exports.purchasePremium = async (req, res) => {
       
       // Create a new order record in the database associated with the user
       req.user
-        .createOrder({ orderid: order.id, status: "PENDING" })
+        .createOrder({ orderid: order.id, status: "PENDING" }) // Associate the order with the user
         .then(() => {
           // Return a success response with order details and Razorpay key ID
           return res.status(201).json({ order, key_id: rzp.key_id });
@@ -44,7 +44,7 @@ exports.purchasePremium = async (req, res) => {
 };
 
 // Controller function to update the transaction status for a premium membership purchase
-exports.updateTransactionStatus = async (req, res) => {
+const updateTransactionStatus = async (req, res) => {
   try {
     const userId = req.user.id;
     const { payment_id, order_id } = req.body;
@@ -68,7 +68,7 @@ exports.updateTransactionStatus = async (req, res) => {
         return res.status(202).json({
           success: true,
           message: "Transaction Successful",
-          token: userController.generateAccessToken(userId, undefined, true),
+          token: userController.generateAccessToken(userId, undefined, true), // Generate a new access token with premium status
         });
       })
       .catch((error) => {
@@ -78,4 +78,9 @@ exports.updateTransactionStatus = async (req, res) => {
     console.log(err);
     res.status(403).json({ error: err, message: "Something went wrong" });
   }
+};
+
+module.exports = {
+  purchasePremium,
+  updateTransactionStatus
 };

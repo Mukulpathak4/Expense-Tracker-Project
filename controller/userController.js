@@ -3,10 +3,8 @@ const path = require("path");
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const Sib = require("sib-api-v3-sdk");
 
 
-// Function to generate an access token for a user.
 // Function to generate an access token for a user.
 function generateAccessToken(id, email) {
   // Create a JWT token with user information and the correct secret key.
@@ -41,9 +39,7 @@ const postUserSignUp = async (req, res, next) => {
 
     if (existingUser) {
       // If a user with the same email exists, send a conflict (status 409) response.
-      return res.status(409).send(
-        `<script>alert('This email is already taken. Please choose another one.'); window.location.href='/'</script>`
-      );
+      return res.status(409).json({ message: 'This email is already taken. Please choose another one.' });
     }
 
     // If no user with the same email exists, hash the user's password securely.
@@ -81,20 +77,20 @@ const postUserLogin = (req, res, next) => {
           // Handle unexpected errors with a 500 status response.
           return res
             .status(500)
-            .json({ success: false, message: "Something went Wrong!" });
+            .json({ success: false, message: "Something went wrong!" });
         }
         if (result == true) {
           // If the password matches, send a success (status 200) response with an access token.
           return res.status(200).json({
             success: true,
-            message: "Login Successful!",
+            message: "Login successful!",
             token: generateAccessToken(user.id, user.email),
           });
         } else {
           // If the password is incorrect, send a unauthorized (status 401) response.
           return res.status(401).json({
             success: false,
-            message: "Password Incorrect!",
+            message: "Password incorrect!",
           });
         }
       });
@@ -102,11 +98,12 @@ const postUserLogin = (req, res, next) => {
       // If no user with the provided email exists, send a not found (status 404) response.
       return res.status(404).json({
         success: false,
-        message: "User doesn't Exists!",
+        message: "User doesn't exist!",
       });
     }
   });
 };
+
 
 // Export the defined functions for use in other parts of the application.
 module.exports = {

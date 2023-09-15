@@ -6,7 +6,7 @@ const User = require("../models/userModel"); // Import the User model
 const authenticate = (req, res, next) => {
   try {
     // Extract the JWT token from the "Authorization" header of the HTTP request
-    const token = req.header("Authorization").replace("Bearer ", "");
+    const token = req.header("Authorization");
 
 
     // Verify the JWT token using a secret key ("kjhsgdfiuiew889kbasgdfskjabsdfjlabsbdljhsd")
