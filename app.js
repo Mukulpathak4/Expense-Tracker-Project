@@ -5,6 +5,10 @@ const app = express();
 
 const path = require("path");
 const fs = require("fs");
+const helmet = require("helmet");
+const morgan = require("morgan");
+
+
 
 require('dotenv').config(); // Load environment variables from .env file
 
@@ -12,10 +16,6 @@ require('dotenv').config(); // Load environment variables from .env file
 // Import the body-parser middleware for parsing HTTP request bodies.
 const bodyParser = require("body-parser");
 
-
-// const dotenv = require("dotenv");
-// dotenv.config();
-const helmet = require("helmet");
 app.use(
   helmet({
     contentSecurityPolicy: false,
@@ -27,7 +27,6 @@ const accessLogStream = fs.createWriteStream(
   path.join(__dirname, "access.log"),
   { flags: "a" }
 );
-const morgan = require("morgan");
 app.use(morgan("combined", { stream: accessLogStream }));
 
 // Import the Sequelize instance for connecting to the database.

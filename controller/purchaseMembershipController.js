@@ -18,7 +18,7 @@ const purchasePremium = async (req, res) => {
     });
 
     // Define the amount for the premium membership (in this case, 50000 INR)
-    const amount = 50;
+    const amount = 5000;
 
     // Create a Razorpay order with the specified amount and currency
     rzp.orders.create({ amount, currency: "INR" }, (err, order) => {
