@@ -7,6 +7,7 @@ const path = require("path");
 const fs = require("fs");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const https = require("https");
 
 
 
@@ -48,6 +49,9 @@ const Order = require("./models/orderModel"); // Order model
 
 const ResetPassword = require("./models/resetPasswordModel");
 
+const serverKey = fs.readFileSync('server.key');
+const serverCert = fs.readFileSync('server.cert');
+
 // Serve static files from the "public" directory.
 app.use(express.static("public"));
 
@@ -85,6 +89,10 @@ User.hasMany(ResetPassword);
 // Sync the Sequelize models with the database and start the Express application.
 sequelize
   .sync() // This method synchronizes the database schema with the defined models.
+  // .then((result) => {
+  //   https.createServer({key: privateKey , cert: certificate},app)
+  //   .listen(process.env.PORT ||3000); // Start the Express app on port 3000.
+  // })
   .then((result) => {
     app.listen(process.env.PORT ||3000); // Start the Express app on port 3000.
   })
