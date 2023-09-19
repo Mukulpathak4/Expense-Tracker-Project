@@ -77,7 +77,7 @@ app.use("/reports", reportsRouter);
 app.use("/password", resetPasswordRouter);
 
 app.use((req,res)=>{
-  res.sendFile(path.join(__dirname, "../", "public", "html", "user.html"));
+  res.sendFile(path.join(__dirname, "./", "public", "html", "user.html"));
 })
 
 // Define relationships between database tables using Sequelize associations.
