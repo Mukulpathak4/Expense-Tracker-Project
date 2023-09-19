@@ -19,7 +19,7 @@ function login() {
 
   // Send a POST request to the server to log in the user.
   axios
-    .post("http://localhost:3000/login", loginDetails)
+    .post("http://13.48.27.29:3000/login", loginDetails)
     .then((result) => {
       // Display a success message and store the token in local storage.
       alert(result.data.message);
@@ -54,7 +54,7 @@ function signup() {
 
   // Send a POST request to the server to sign up the user.
   axios
-    .post("http://localhost:3000/signup", signUpDetails)
+    .post("http://13.48.27.29:3000/signup", signUpDetails)
     .then((result) => {
       // Display a success message.
       alert('Done! You Can Login Now.');

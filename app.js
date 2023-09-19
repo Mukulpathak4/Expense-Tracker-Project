@@ -76,6 +76,10 @@ app.use("/reports", reportsRouter);
 
 app.use("/password", resetPasswordRouter);
 
+app.use((req,res)=>{
+  res.sendFile(path.join(__dirname, "../", "public", "html", "user.html"));
+})
+
 // Define relationships between database tables using Sequelize associations.
 User.hasMany(Expense); // A user can have multiple expenses.
 Expense.belongsTo(User); // An expense belongs to a user.
