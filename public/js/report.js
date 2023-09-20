@@ -42,7 +42,7 @@ async function getDailyReport(e) {
 
     // Send a POST request to retrieve daily expense reports
     const res = await axios.post(
-      "http://13.48.27.29:3000/reports/dailyReports",
+      "http://16.171.104.201/reports/dailyReports",
       {
         date: formattedDate,
       },
@@ -123,7 +123,7 @@ async function getMonthlyReport(e) {
 
     // Send a POST request to retrieve monthly expense reports
     const res = await axios.post(
-      "http://13.48.27.29:3000/reports/monthlyReports",
+      "http://16.171.104.201/reports/monthlyReports",
       {
         month: formattedMonth,
       },

@@ -10,11 +10,11 @@ body {
 .navbar {
     background-color: #0e2d3e;
     color: #fff;
-    padding: 10px; /* Add some padding for mobile */
+    padding: 10px;
 }
 
 .navbar-brand {
-    font-size: 1.2rem; /* Decrease font size for mobile */
+    font-size: 1.2rem;
     font-weight: bold;
     color: #fff;
 }
@@ -28,12 +28,12 @@ body {
 .page-header {
     background-color: #fff;
     border-bottom: 1px solid #ddd;
-    padding: 10px; /* Add some padding for mobile */
+    padding: 10px;
     margin-bottom: 20px;
 }
 
 .page-header h1 {
-    font-size: 20px; /* Decrease font size for mobile */
+    font-size: 20px;
     font-weight: bold;
 }
 
@@ -42,7 +42,7 @@ body {
     background-color: #0077b5;
     color: #fff;
     border: none;
-    padding: 10px 20px; /* Add some padding for mobile */
+    padding: 10px 20px;
 }
 
 /* Form styles */
@@ -50,14 +50,14 @@ body {
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 10px;
-    width: 100%; /* Make form controls full width on mobile */
+    width: 100%;
 }
 
 /* Table styles */
 .table {
     background-color: #fff;
     border: 1px solid #ddd;
-    width: 100%; /* Make tables full width on mobile */
+    width: 100%;
 }
 
 /* Table headers */
@@ -72,14 +72,14 @@ body {
 
 /* Add some spacing to elements */
 .container {
-    margin: 10px; /* Decrease margin for mobile */
+    margin: 10px;
 }
 
 /* Add some spacing to the bottom of the page */
 .page-footer {
     background-color: #fff;
     border-top: 1px solid #ddd;
-    padding: 10px 0; /* Add some padding for mobile */
+    padding: 10px 0;
     text-align: center;
     color: #666;
 }
@@ -102,7 +102,11 @@ a:hover {
     }
 
     .navbar-brand {
-        font-size: 1rem;
+        font-size: 1rem; /* Decreased font size for mobile */
+    }
+
+    .navbar-nav .nav-item .nav-link {
+        font-weight: normal; /* Removed bold font weight for mobile */
     }
 
     .page-header {
@@ -110,7 +114,7 @@ a:hover {
     }
 
     .page-header h1 {
-        font-size: 18px;
+        font-size: 18px; /* Decreased font size for mobile */
     }
 
     .btn-primary {

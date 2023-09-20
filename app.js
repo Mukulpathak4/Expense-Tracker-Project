@@ -99,5 +99,6 @@ sequelize
   // })
   .then((result) => {
     app.listen(process.env.PORT ||3000); // Start the Express app on port 3000.
+    console.log("Server Started");
   })
   .catch((err) => console.log(err)); // Handle any errors that occur during synchronization.

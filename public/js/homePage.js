@@ -76,7 +76,7 @@ async function addExpense() {
 
     // Send a POST request to add the expense
     const res = await axios.post(
-      "http://13.48.27.29:3000/expense/addExpense",
+      "http://16.171.104.201/expense/addExpense",
       {
         date: dateStr,
         category: categoryValue,
@@ -103,7 +103,7 @@ async function getAllExpenses() {
 
     // Send a GET request to retrieve all expenses
     const res = await axios.get(
-      "http://13.48.27.29:3000/expense/getAllExpenses/1",
+      "http://16.171.104.201/expense/getAllExpenses/1",
       { headers: { Authorization: token } }
     );
 
@@ -193,7 +193,7 @@ async function deleteExpense(e) {
 
       // Send a GET request to delete the expense
       const res = await axios.get(
-        `http://13.48.27.29:3000/expense/deleteExpense/${id}`,
+        `http://16.171.104.201/expense/deleteExpense/${id}`,
         { headers: { Authorization: token } }
       );
 
@@ -222,7 +222,7 @@ async function editExpense(e) {
 
       // Send a GET request to retrieve all expenses
       const res = await axios.get(
-        "http://13.48.27.29:3000/expense/getAllExpenses",
+        "http://16.171.104.201/expense/getAllExpenses",
         { headers: { Authorization: token } }
       );
 
@@ -244,7 +244,7 @@ async function editExpense(e) {
 
             // Send a POST request to update the expense
             const res = await axios.post(
-              `http://13.48.27.29:3000/expense/editExpense/${id}`,
+              `http://16.171.104.201/expense/editExpense/${id}`,
               {
                 category: categoryValue.textContent.trim(),
                 description: descriptionValue.value,
@@ -271,7 +271,7 @@ async function buyPremium(e) {
 
   // Send a GET request to initiate premium membership purchase
   const res = await axios.get(
-    "http://13.48.27.29:3000/purchase/premiumMembership",
+    "http://16.171.104.201/purchase/premiumMembership",
     { headers: { Authorization: token } }
   );
 
@@ -284,7 +284,7 @@ async function buyPremium(e) {
     // This handler function will handle the successful payment
     handler: async function (response) {
       const res = await axios.post(
-        "http://13.48.27.29:3000/purchase/updateTransactionStatus",
+        "http://16.171.104.201/purchase/updateTransactionStatus",
         {
           order_id: options.order_id,
           payment_id: response.razorpay_payment_id,
@@ -312,7 +312,7 @@ async function isPremiumUser() {
   const token = localStorage.getItem("token");
 
   // Send a GET request to check if the user is a premium member
-  const res = await axios.get("http://13.48.27.29:3000/isPremiumUser", {
+  const res = await axios.get("http://16.171.104.201/isPremiumUser", {
     headers: { Authorization: token },
   });
 
@@ -335,7 +335,7 @@ async function paginationBtn(e) {
 
     // Send a GET request to retrieve expenses for the selected page
     const res = await axios.get(
-      `http://13.48.27.29:3000/expense/getAllExpenses/${pageNo}`,
+      `http://16.171.104.201/expense/getAllExpenses/${pageNo}`,
       { headers: { Authorization: token } }
     );
 
