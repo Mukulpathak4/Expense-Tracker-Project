@@ -1,7 +1,7 @@
 # Expense-Tracker-Project
 # Expense Tracker API
 
-Expense Tracker is a Node.js and Express-based backend API that helps users manage their expenses. It includes features like premium membership using Razorpay, all-time expense reports, and a leaderboard based on user expenses and forgot password feature. The project also integrates security measures using Helmet and logs requests with Morgan.
+Expense Tracker is a Node.js and Express-based backend API that helps users manage their expenses. It includes features like premium membership using Razorpay, all-time expense reports and reports can be downloaded, and a leaderboard based on user expenses and forgot password feature. The project also integrates security measures using Helmet and logs requests with Morgan.
 
 ## Features
 
@@ -9,6 +9,7 @@ Expense Tracker is a Node.js and Express-based backend API that helps users mana
 - **Premium Membership:** Users can purchase premium features using Razorpay.
 - **Expense Management:** Allows users to track and manage their expenses.
 - **All-Time Expense Reports:** Users can generate reports for all-time expenses.
+- **Download Expense Report
 - **Leaderboard:** Displays a leaderboard ranking users based on their total expenses.
 - **Security:** Utilizes Helmet to enhance API security.
 - **Logging:** Request and response logging using Morgan.
