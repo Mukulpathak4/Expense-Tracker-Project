@@ -66,6 +66,7 @@ const getAllExpenses = async (req, res, next) => {
   }
 };
 
+
 // Controller function to get expenses for pagination
 const getAllExpensesforPagination = async (req, res, next) => {
   try {

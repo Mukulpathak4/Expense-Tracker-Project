@@ -4,6 +4,8 @@ const dateShowBtn = document.getElementById("dateShowBtn");
 const tbodyDaily = document.getElementById("tbodyDailyId");
 const tfootDaily = document.getElementById("tfootDailyId");
 
+const downloadBtn = document.getElementById('downloadBtn');
+
 const monthInput = document.getElementById("month");
 const monthShowBtn = document.getElementById("monthShowBtn");
 const tbodyMonthly = document.getElementById("tbodyMonthlyId");
@@ -42,7 +44,7 @@ async function getDailyReport(e) {
 
     // Send a POST request to retrieve daily expense reports
     const res = await axios.post(
-      "http://16.171.104.201/reports/dailyReports",
+      "http://localhost:3200/reports/dailyReports",
       {
         date: formattedDate,
       },
@@ -108,6 +110,39 @@ async function getDailyReport(e) {
     console.log(error);
   }
 }
+async function download() {
+  try {
+    const token = localStorage.getItem("token"); // Get the user's token from local storage
+
+    // Send a GET request to retrieve the report data from the server
+    const res = await axios.get(
+      "http://localhost:3200/reports/downloadReport",
+      {
+        headers: { Authorization: token },
+        responseType: "blob", // Set the response type to "blob" for binary data
+      }
+    );
+
+    // Create a Blob object from the response data
+    const blob = new Blob([res.data], { type: "application/octet-stream" });
+
+    // Generate a temporary URL for the Blob
+    const url = window.URL.createObjectURL(blob);
+
+    // Create an anchor element to trigger the download
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "report.csv"; // Set the desired file name and extension
+
+    // Programmatically click the anchor to start the download
+    a.click();
+
+    // Release the URL object to free up resources
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 // Define an asynchronous function to get monthly expense reports
 async function getMonthlyReport(e) {
@@ -123,7 +158,7 @@ async function getMonthlyReport(e) {
 
     // Send a POST request to retrieve monthly expense reports
     const res = await axios.post(
-      "http://16.171.104.201/reports/monthlyReports",
+      "http://localhost:3200/reports/monthlyReports",
       {
         month: formattedMonth,
       },
@@ -194,3 +229,4 @@ async function getMonthlyReport(e) {
 logoutBtn.addEventListener("click", logout);
 dateShowBtn.addEventListener("click", getDailyReport);
 monthShowBtn.addEventListener("click", getMonthlyReport);
+downloadBtn.addEventListener("click",download);

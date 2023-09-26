@@ -9,8 +9,6 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const https = require("https");
 
-
-
 require('dotenv').config(); // Load environment variables from .env file
 
 
@@ -48,6 +46,7 @@ const Expense = require("./models/expenseModel"); // Expense model
 const Order = require("./models/orderModel"); // Order model
 
 const ResetPassword = require("./models/resetPasswordModel");
+
 
 const serverKey = fs.readFileSync('server.key');
 const serverCert = fs.readFileSync('server.cert');
@@ -95,10 +94,10 @@ sequelize
   .sync() // This method synchronizes the database schema with the defined models.
   // .then((result) => {
   //   https.createServer({key: privateKey , cert: certificate},app)
-  //   .listen(process.env.PORT ||3000); // Start the Express app on port 3000.
+  //   .listen(process.env.PORT ||3200); // Start the Express app on port 3200.
   // })
   .then((result) => {
-    app.listen(process.env.PORT ||3000); // Start the Express app on port 3000.
+    app.listen(process.env.PORT ||3200); // Start the Express app on port 3200.
     console.log("Server Started");
   })
   .catch((err) => console.log(err)); // Handle any errors that occur during synchronization.

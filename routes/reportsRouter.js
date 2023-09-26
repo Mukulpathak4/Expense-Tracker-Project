@@ -13,6 +13,7 @@ router.post(
   userAuthentication,
   reportsController.monthlyReports
 );
+router.get("/downloadReport",userAuthentication, reportsController.downloadReport);
 
 router.get("/getReportsPage", reportsController.getReportsPage);
 module.exports = router;

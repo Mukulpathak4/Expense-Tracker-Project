@@ -68,7 +68,7 @@ const sendMail = async (req, res, next) => {
       subject: "Expense Tracker Reset Password",
       textContent: "Link Below",
       htmlContent: `<h3>Hi! We received a request from you to reset the password. Here is the link below:</h3>
-      <a href="http://localhost:3000/password/resetPasswordPage/${requestId}">Click Here</a>`,
+      <a href="http://localhost:3200/password/resetPasswordPage/${requestId}">Click Here</a>`,
       params: {
         requestId: requestId,
       },

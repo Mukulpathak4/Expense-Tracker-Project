@@ -18,7 +18,7 @@ router.use(express.static("public"));
 // Route for displaying the home page.
 router.get("/", expenseController.getHomePage);
 
-// Route for retrieving all expenses.
+//Route for retrieving all expenses.
 router.get(
   "/getAllExpenses",
   userAuthentication, // Middleware to authenticate the user
