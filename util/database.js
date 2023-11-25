@@ -1,7 +1,15 @@
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD,{
-  dialect :'mysql',
-  host:process.env.DB_HOST
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb+srv://mkp123:GateAIR2987@cluster0.smlxq3a.mongodb.net/', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
-module.exports=sequelize;
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+  console.log('Connected to MongoDB');
+});
+
+module.exports = mongoose;

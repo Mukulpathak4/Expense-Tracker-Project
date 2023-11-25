@@ -13,7 +13,7 @@ const authenticate = (req, res, next) => {
      const user = jwt.verify(token, process.env.RAZORPAY_KEY_SECRET);
      
     // Find the user in the database based on the user ID stored in the JWT
-    User.findByPk(user.userId).then((user) => {
+    User.findById(user.userId).then((user) => {
       // Attach the user object to the request for further use in the route handler
       req.user = user;
 

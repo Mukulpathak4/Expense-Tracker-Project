@@ -12,36 +12,45 @@ const getLeaderboardPage = (req, res, next) => {
 };
 
 // Controller function to get the leaderboard data
-const getLeaderboard = (req, res, next) => {
-  // Use Sequelize to query the database and calculate the leaderboard data
-
-  Expense.findAll({
-    attributes: [
-      // Calculate the total expense for each user and rename it as "totalExpense"
-      [sequelize.fn("sum", sequelize.col("amount")), "totalExpense"],
-      // Select the "name" attribute from the associated User model and rename it as "name"
-      [sequelize.col("user.name"), "name"],
-    ],
-    group: ["userId"], // Group the results by the "userId" field
-    include: [
+const getLeaderboard = async (req, res, next) => {
+  try {
+    // Use Mongoose to query the database and calculate the leaderboard data
+    const expenses = await Expense.aggregate([
       {
-        model: User, // Include the User model to access user-related data
-        attributes: [], // Exclude all attributes from the User model (we only need the association)
+        $group: {
+          _id: "$user", // Group the results by the "user" field
+          totalExpense: { $sum: "$amount" }, // Calculate the total expense for each user
+        },
       },
-    ],
-    order: [[sequelize.fn("sum", sequelize.col("amount")), "DESC"]], // Order the results by total expense in descending order
-  })
-    .then((expenses) => {
-      // Map the queried data into a format suitable for the leaderboard
-      const result = expenses.map((expense) => ({
-        name: expense.getDataValue("name"), // Get the "name" value from the result
-        amount: expense.getDataValue("totalExpense"), // Get the "totalExpense" value from the result
-      }));
+      {
+        $lookup: {
+          from: "users", // Join with the "users" collection
+          localField: "_id",
+          foreignField: "_id",
+          as: "user",
+        },
+      },
+      {
+        $unwind: "$user", // Unwind the "user" array created by the $lookup stage
+      },
+      {
+        $project: {
+          _id: 0, // Exclude the "_id" field from the final result
+          name: "$user.name", // Select the "name" attribute from the associated User model
+          amount: "$totalExpense", // Rename the "totalExpense" field as "amount"
+        },
+      },
+      {
+        $sort: { amount: -1 }, // Order the results by total expense in descending order
+      },
+    ]);
 
-      // Send the leaderboard data as JSON
-      res.send(JSON.stringify(result));
-    })
-    .catch((err) => console.log(err)); // Handle any errors that occur during the query
+    // Send the leaderboard data as JSON
+    res.json(expenses);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("An error occurred while fetching leaderboard data.");
+  }
 };
 
 module.exports = {

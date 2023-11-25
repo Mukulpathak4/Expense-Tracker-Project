@@ -6,9 +6,9 @@ const jwt = require("jsonwebtoken");
 
 
 // Function to generate an access token for a user.
-function generateAccessToken(id, email) {
+function generateAccessToken(_id, email) {
   // Create a JWT token with user information and the correct secret key.
-  return jwt.sign({ userId: id, email: email }, process.env.RAZORPAY_KEY_SECRET);
+  return jwt.sign({ userId: _id, email: email }, process.env.RAZORPAY_KEY_SECRET);
 }
 
 
@@ -30,12 +30,10 @@ const getLoginPage = (req, res, next) => {
 const postUserSignUp = async (req, res, next) => {
   try {
     // Extract user data from the request body.
-    const name = req.body.name;
-    const email = req.body.email;
-    const password = req.body.password;
+    const { name, email, password } = req.body;
 
     // Check if a user with the same email already exists in the database.
-    const existingUser = await User.findOne({ where: { email: email } });
+    const existingUser = await User.findOne({ email: email });
 
     if (existingUser) {
       // If a user with the same email exists, send a conflict (status 409) response.
@@ -63,37 +61,33 @@ const postUserSignUp = async (req, res, next) => {
 };
 
 // Function to handle user login.
-const postUserLogin = (req, res, next) => {
+const postUserLogin = async (req, res, next) => {
   // Extract login email and password from the request body.
-  const email = req.body.loginEmail;
-  const password = req.body.loginPassword;
+  const { loginEmail, loginPassword } = req.body;
 
-  // Check if a user with the provided email exists in the database.
-  User.findOne({ where: { email: email } }).then((user) => {
+  try {
+    // Check if a user with the provided email exists in the database.
+    const user = await User.findOne({ email: loginEmail });
+
     if (user) {
       // If a user with the provided email exists, compare the hashed password.
-      bcrypt.compare(password, user.password, (err, result) => {
-        if (err) {
-          // Handle unexpected errors with a 500 status response.
-          return res
-            .status(500)
-            .json({ success: false, message: "Something went wrong!" });
-        }
-        if (result == true) {
-          // If the password matches, send a success (status 200) response with an access token.
-          return res.status(200).json({
-            success: true,
-            message: "Login successful!",
-            token: generateAccessToken(user.id, user.email),
-          });
-        } else {
-          // If the password is incorrect, send a unauthorized (status 401) response.
-          return res.status(401).json({
-            success: false,
-            message: "Password incorrect!",
-          });
-        }
-      });
+      const passwordMatch = await bcrypt.compare(loginPassword, user.password);
+
+      if (passwordMatch) {
+        // If the password matches, send a success (status 200) response with an access token.
+        const token = generateAccessToken(user._id, user.email);
+        return res.status(200).json({
+          success: true,
+          message: "Login successful!",
+          token: token,
+        });
+      } else {
+        // If the password is incorrect, send a unauthorized (status 401) response.
+        return res.status(401).json({
+          success: false,
+          message: "Password incorrect!",
+        });
+      }
     } else {
       // If no user with the provided email exists, send a not found (status 404) response.
       return res.status(404).json({
@@ -101,7 +95,10 @@ const postUserLogin = (req, res, next) => {
         message: "User doesn't exist!",
       });
     }
-  });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Something went wrong!" });
+  }
 };
 
 

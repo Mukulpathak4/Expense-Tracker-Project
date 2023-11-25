@@ -7,9 +7,9 @@ async function sendMail() {
     // Get the value of the input field with the ID "email"
     const email = document.getElementById("email").value;
     
-    // Send a POST request to the "http://localhost:3200/password/sendMail" endpoint
+    // Send a POST request to the "http://localhost:3000/password/sendMail" endpoint
     // with the email as the data payload
-    const res = await axios.post("http://localhost:3200/password/sendMail", {
+    const res = await axios.post("http://localhost:3000/password/sendMail", {
       email: email,
     });
     

@@ -17,12 +17,10 @@ const dailyReports = async (req, res, next) => {
     const date = req.body.date; // Extract the requested date from the request body
 
     // Find all expenses for the specified date and the current user
-    const expenses = await Expense.findAll({
-      where: { date: date, userId: req.user.id },
-    });
+    const expenses = await Expense.find({ date: date, user: req.user._id });
 
     // Send the list of expenses as the response
-    return res.send(expenses);
+    return res.json(expenses);
   } catch (error) {
     console.log(error);
     return res.status(500).send("Internal Server Error");
@@ -35,18 +33,13 @@ const monthlyReports = async (req, res, next) => {
     const month = req.body.month; // Extract the requested month from the request body
 
     // Find all expenses for the specified month and the current user
-    const expenses = await Expense.findAll({
-      where: {
-        date: {
-          [Op.like]: `%-${month}-%`, // Use Sequelize's Op.like to match the month in the date
-        },
-        userId: req.user.id,
-      },
-      raw: true, // Return raw data instead of Sequelize instances
+    const expenses = await Expense.find({
+      date: { $regex: `.*-${month}-.*` }, // Use a regular expression to match the month in the date
+      user: req.user._id,
     });
 
     // Send the list of expenses as the response
-    return res.send(expenses);
+    return res.json(expenses);
   } catch (error) {
     console.log(error);
     return res.status(500).send("Internal Server Error");
@@ -56,10 +49,8 @@ const monthlyReports = async (req, res, next) => {
 // Controller function to download expense reports in CSV format
 const downloadReport = async (req, res, next) => {
   try {
-    const userId = req.user.id; // Get the user's ID from the request
-    const expenses = await Expense.findAll({
-      where: { userId: userId },
-    });
+    const userId = req.user._id; // Get the user's ID from the request
+    const expenses = await Expense.find({ user: userId });
 
     // Convert the expenses data to CSV format
     const csvData = [];
@@ -70,7 +61,7 @@ const downloadReport = async (req, res, next) => {
         expense.date,
         expense.category,
         expense.description,
-        expense.amount,
+        expense.amount.toString(), // Convert amount to string for CSV
       ]);
     });
 
@@ -78,8 +69,8 @@ const downloadReport = async (req, res, next) => {
     const filePath = path.join(__dirname, "../", "public", "downloads", "expenses.csv");
 
     // Ensure the directory structure exists, and then create the file
-    await fs.promises.mkdir(path.dirname(filePath), { recursive: true });
-    await fs.promises.writeFile(filePath, csvData.map(row => row.join(",")).join("\n"));
+    await fs.mkdir(path.dirname(filePath), { recursive: true });
+    await fs.writeFile(filePath, csvData.map(row => row.join(",")).join("\n"));
 
     // Set the response headers for CSV download
     res.setHeader("Content-Disposition", `attachment; filename="expenses.csv"`);
