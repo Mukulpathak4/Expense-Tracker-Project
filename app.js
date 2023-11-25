@@ -9,8 +9,7 @@ require('dotenv').config();
 
 const bodyParser = require("body-parser");
 
-app.use(
-  helmet({
+app.use( helmet({
     contentSecurityPolicy: false,
     crossOriginEmbedderPolicy: false,
   })
@@ -64,7 +63,7 @@ app.use((req, res) => {
 
 const PORT = process.env.PORT || 3200;
 
-mongoose.connect('mongodb+srv://mkp123:GateAIR2987@cluster0.smlxq3a.mongodb.net/')
+mongoose.connect('')
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
