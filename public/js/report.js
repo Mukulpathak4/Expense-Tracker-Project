@@ -44,7 +44,11 @@ async function getDailyReport(e) {
 
     // Send a POST request to retrieve daily expense reports
     const res = await axios.post(
+<<<<<<< HEAD
+      "http://localhost:4000/reports/dailyReports",
+=======
       "http://localhost:3000/reports/dailyReports",
+>>>>>>> 1a64d42092b089a650b20cf407a83246f579f45b
       {
         date: formattedDate,
       },
@@ -116,7 +120,11 @@ async function download() {
 
     // Send a GET request to retrieve the report data from the server
     const res = await axios.get(
+<<<<<<< HEAD
+      "http://localhost:4000/reports/downloadReport",
+=======
       "http://localhost:3000/reports/downloadReport",
+>>>>>>> 1a64d42092b089a650b20cf407a83246f579f45b
       {
         headers: { Authorization: token },
         responseType: "blob", // Set the response type to "blob" for binary data
@@ -158,7 +166,11 @@ async function getMonthlyReport(e) {
 
     // Send a POST request to retrieve monthly expense reports
     const res = await axios.post(
+<<<<<<< HEAD
+      "http://localhost:4000/reports/monthlyReports",
+=======
       "http://localhost:3000/reports/monthlyReports",
+>>>>>>> 1a64d42092b089a650b20cf407a83246f579f45b
       {
         month: formattedMonth,
       },

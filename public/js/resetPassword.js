@@ -9,7 +9,11 @@ async function updatePassword() {
 
     // Send a POST request to update the user's password using the new password
     const res = await axios.post(
+<<<<<<< HEAD
+      "http://localhost:4000/password/resetPassword",
+=======
       "http://localhost:3000/password/resetPassword",
+>>>>>>> 1a64d42092b089a650b20cf407a83246f579f45b
       {
         password: newPassword,
       }

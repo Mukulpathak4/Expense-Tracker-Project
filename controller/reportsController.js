@@ -2,7 +2,6 @@ const path = require("path");
 const fs = require("fs");
 const csv = require("csv-parser");
 const Expense = require("../models/expenseModel");
-const { Op } = require("sequelize");
 
 // Controller function to render the reports page
 const getReportsPage = (req, res, next) => {
@@ -10,14 +9,20 @@ const getReportsPage = (req, res, next) => {
   res.sendFile(path.join(__dirname, "../", "public", "html", "report.html"));
 };
 
-
 // Controller function to get daily expense reports
 const dailyReports = async (req, res, next) => {
   try {
     const date = req.body.date; // Extract the requested date from the request body
 
     // Find all expenses for the specified date and the current user
+<<<<<<< HEAD
+    const expenses = await Expense.find({
+      date: date,
+      userId: req.user.id,
+    });
+=======
     const expenses = await Expense.find({ date: date, user: req.user._id });
+>>>>>>> 1a64d42092b089a650b20cf407a83246f579f45b
 
     // Send the list of expenses as the response
     return res.json(expenses);
@@ -34,8 +39,15 @@ const monthlyReports = async (req, res, next) => {
 
     // Find all expenses for the specified month and the current user
     const expenses = await Expense.find({
+<<<<<<< HEAD
+      date: {
+        $regex: `.*-${month}-.*`, // Use regular expression to match the month in the date
+      },
+      userId: req.user.id,
+=======
       date: { $regex: `.*-${month}-.*` }, // Use a regular expression to match the month in the date
       user: req.user._id,
+>>>>>>> 1a64d42092b089a650b20cf407a83246f579f45b
     });
 
     // Send the list of expenses as the response
@@ -49,8 +61,15 @@ const monthlyReports = async (req, res, next) => {
 // Controller function to download expense reports in CSV format
 const downloadReport = async (req, res, next) => {
   try {
+<<<<<<< HEAD
+    const userId = req.user.id; // Get the user's ID from the request
+    const expenses = await Expense.find({
+      userId: userId,
+    });
+=======
     const userId = req.user._id; // Get the user's ID from the request
     const expenses = await Expense.find({ user: userId });
+>>>>>>> 1a64d42092b089a650b20cf407a83246f579f45b
 
     // Convert the expenses data to CSV format
     const csvData = [];
@@ -75,7 +94,7 @@ const downloadReport = async (req, res, next) => {
     // Set the response headers for CSV download
     res.setHeader("Content-Disposition", `attachment; filename="expenses.csv"`);
     res.setHeader("Content-Type", "text/csv");
-    
+
     // Pipe the CSV file to the response
     const readStream = fs.createReadStream(filePath);
     readStream.pipe(res);
@@ -86,10 +105,9 @@ const downloadReport = async (req, res, next) => {
   }
 };
 
-
 module.exports = {
   getReportsPage,
   dailyReports,
   monthlyReports,
-  downloadReport, // Add the new controller function
+  downloadReport,
 };

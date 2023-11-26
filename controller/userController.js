@@ -4,13 +4,11 @@ const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-
 // Function to generate an access token for a user.
 function generateAccessToken(_id, email) {
   // Create a JWT token with user information and the correct secret key.
   return jwt.sign({ userId: _id, email: email }, process.env.RAZORPAY_KEY_SECRET);
 }
-
 
 // Middleware to check if a user is a premium user.
 const isPremiumUser = (req, res, next) => {
@@ -62,6 +60,29 @@ const postUserSignUp = async (req, res, next) => {
 
 // Function to handle user login.
 const postUserLogin = async (req, res, next) => {
+<<<<<<< HEAD
+  try {
+    // Extract login email and password from the request body.
+    const email = req.body.loginEmail;
+    const password = req.body.loginPassword;
+
+    // Check if a user with the provided email exists in the database.
+    const user = await User.findOne({ email: email });
+
+    if (user) {
+      // If a user with the provided email exists, compare the hashed password.
+      const result = await bcrypt.compare(password, user.password);
+
+      if (result) {
+        // If the password matches, send a success (status 200) response with an access token.
+        return res.status(200).json({
+          success: true,
+          message: "Login successful!",
+          token: generateAccessToken(user.id, user.email),
+        });
+      } else {
+        // If the password is incorrect, send an unauthorized (status 401) response.
+=======
   // Extract login email and password from the request body.
   const { loginEmail, loginPassword } = req.body;
 
@@ -83,6 +104,7 @@ const postUserLogin = async (req, res, next) => {
         });
       } else {
         // If the password is incorrect, send a unauthorized (status 401) response.
+>>>>>>> 1a64d42092b089a650b20cf407a83246f579f45b
         return res.status(401).json({
           success: false,
           message: "Password incorrect!",
@@ -97,10 +119,13 @@ const postUserLogin = async (req, res, next) => {
     }
   } catch (err) {
     console.error(err);
+<<<<<<< HEAD
+    res.status(500).send("An error occurred while processing the login.");
+=======
     res.status(500).json({ success: false, message: "Something went wrong!" });
+>>>>>>> 1a64d42092b089a650b20cf407a83246f579f45b
   }
 };
-
 
 // Export the defined functions for use in other parts of the application.
 module.exports = {

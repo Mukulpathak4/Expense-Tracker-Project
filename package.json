@@ -24,6 +24,11 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
     "mongoose": "^8.0.1",
+<<<<<<< HEAD
+    "mongoose-auto-increment": "^5.0.1",
+    "mongoose-sequence": "^5.3.1",
+=======
+>>>>>>> 1a64d42092b089a650b20cf407a83246f579f45b
     "morgan": "^1.10.0",
     "mysql2": "^3.6.0",
     "nodemon": "^3.0.1",

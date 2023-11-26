@@ -76,7 +76,11 @@ async function addExpense() {
 
     // Send a POST request to add the expense
     const res = await axios.post(
+<<<<<<< HEAD
+      "http://localhost:4000/expense/addExpense",
+=======
       "http://localhost:3000/expense/addExpense",
+>>>>>>> 1a64d42092b089a650b20cf407a83246f579f45b
       {
         date: dateStr,
         category: categoryValue,
@@ -85,7 +89,7 @@ async function addExpense() {
       },
       { headers: { Authorization: token } }
     );
-
+    console.log(res);
     // If the request is successful (status code 200), reload the page
     if (res.status == 200) {
       window.location.reload();
@@ -103,14 +107,19 @@ async function getAllExpenses() {
 
     // Send a GET request to retrieve all expenses
     const res = await axios.get(
+<<<<<<< HEAD
+      "http://localhost:4000/expense/getAllExpenses/1",
+=======
       "http://localhost:3000/expense/getAllExpenses/1",
+>>>>>>> 1a64d42092b089a650b20cf407a83246f579f45b
       { headers: { Authorization: token } }
     );
 
     // Loop through the expenses and populate the table
     res.data.expenses.forEach((expenses) => {
       // Extract expense data
-      const id = expenses.id;
+      console.log(expenses);
+      const id = expenses._id;
       const date = expenses.date;
       const categoryValue = expenses.category;
       const descriptionValue = expenses.description;
@@ -189,20 +198,28 @@ async function deleteExpense(e) {
     // Check if the clicked element is a delete button
     if (e.target.classList.contains("delete")) {
       let tr = e.target.parentElement.parentElement;
+      
+      // Access the id from text content
       let id = tr.children[0].textContent;
       console.log(id);
+<<<<<<< HEAD
+      // Send a GET request to delete the expense
+      const res = await axios.get(
+        `http://localhost:4000/expense/deleteExpense/${id}`,
+=======
 
       // Send a GET request to delete the expense
       const res = await axios.get(
         `http://localhost:3000/expense/deleteExpense/${id}`,
+>>>>>>> 1a64d42092b089a650b20cf407a83246f579f45b
         { headers: { Authorization: token } }
       );
 
       // Reload the page
       window.location.reload();
     }
-  } catch {
-    (err) => console.log(err);
+  } catch (err) {
+    console.log(err);
   }
 }
 
@@ -223,13 +240,18 @@ async function editExpense(e) {
 
       // Send a GET request to retrieve all expenses
       const res = await axios.get(
+<<<<<<< HEAD
+        "http://localhost:4000/expense/getAllExpenses",
+=======
         "http://localhost:3000/expense/getAllExpenses",
+>>>>>>> 1a64d42092b089a650b20cf407a83246f579f45b
         { headers: { Authorization: token } }
       );
+      console.log(res.data);
 
       // Loop through expenses to find the one to edit
       res.data.forEach((expense) => {
-        if (expense.id == id) {
+        if (expense._id == id) {
           // Update input values with existing values
           categoryValue.textContent = expense.category;
           descriptionValue.value = expense.description;
@@ -245,7 +267,11 @@ async function editExpense(e) {
 
             // Send a POST request to update the expense
             const res = await axios.post(
+<<<<<<< HEAD
+              `http://localhost:4000/expense/editExpense/${id}`,
+=======
               `http://localhost:3000/expense/editExpense/${id}`,
+>>>>>>> 1a64d42092b089a650b20cf407a83246f579f45b
               {
                 category: categoryValue.textContent.trim(),
                 description: descriptionValue.value,
@@ -272,7 +298,11 @@ async function buyPremium(e) {
 
   // Send a GET request to initiate premium membership purchase
   const res = await axios.get(
+<<<<<<< HEAD
+    "http://localhost:4000/purchase/premiumMembership",
+=======
     "http://localhost:3000/purchase/premiumMembership",
+>>>>>>> 1a64d42092b089a650b20cf407a83246f579f45b
     { headers: { Authorization: token } }
   );
 
@@ -285,7 +315,11 @@ async function buyPremium(e) {
     // This handler function will handle the successful payment
     handler: async function (response) {
       const res = await axios.post(
+<<<<<<< HEAD
+        "http://localhost:4000/purchase/updateTransactionStatus",
+=======
         "http://localhost:3000/purchase/updateTransactionStatus",
+>>>>>>> 1a64d42092b089a650b20cf407a83246f579f45b
         {
           order_id: options.order_id,
           payment_id: response.razorpay_payment_id,
@@ -313,7 +347,11 @@ async function isPremiumUser() {
   const token = localStorage.getItem("token");
 
   // Send a GET request to check if the user is a premium member
+<<<<<<< HEAD
+  const res = await axios.get("http://localhost:4000/isPremiumUser", {
+=======
   const res = await axios.get("http://localhost:3000/isPremiumUser", {
+>>>>>>> 1a64d42092b089a650b20cf407a83246f579f45b
     headers: { Authorization: token },
   });
 
@@ -336,7 +374,11 @@ async function paginationBtn(e) {
 
     // Send a GET request to retrieve expenses for the selected page
     const res = await axios.get(
+<<<<<<< HEAD
+      `http://localhost:4000/expense/getAllExpenses/${pageNo}`,
+=======
       `http://localhost:3000/expense/getAllExpenses/${pageNo}`,
+>>>>>>> 1a64d42092b089a650b20cf407a83246f579f45b
       { headers: { Authorization: token } }
     );
 
